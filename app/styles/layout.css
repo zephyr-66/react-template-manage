@@ -1,0 +1,25 @@
+.home-page {
+  height: 100%;
+}
+
+.home-page .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.home-page-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #ffffff;
+  padding: 0 15px;
+}
+
+.home-page-header .trigger {
+  margin-right: 20px;
+}
+
+.home-page-header .trigger:hover {
+  color: #1890ff;
+}
