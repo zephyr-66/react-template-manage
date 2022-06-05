@@ -1,0 +1,8 @@
+.list-page-main {
+  padding: 15px;
+  background-color: #ffffff;
+}
+
+.list-page-main > .list-page-filter {
+  border-bottom: 1px dashed #eee;
+}

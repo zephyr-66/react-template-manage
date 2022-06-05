@@ -9,6 +9,7 @@
 
 .login-page-container{
   width: 328px;
+  padding-bottom: 8%;
 }
 
 .login-page-container > .title {
@@ -19,7 +20,7 @@
 }
 .login-page-container > .sub-title {
   margin-top: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   color: rgba(0, 0, 0, 0.45);
   font-size: 14px;
   text-align: center;

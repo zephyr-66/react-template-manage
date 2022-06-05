@@ -1,3 +1,10 @@
 :root {
+}
 
+.list-page {
+  padding: 15px;
+}
+
+.list-page .inline-form > .ant-form-item {
+  margin-bottom: 24px;
 }
