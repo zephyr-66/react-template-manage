@@ -3,6 +3,11 @@ import type { FormItemProps, FormProps as Props } from "antd";
 
 export type ValueType = "input" | "select" | "dateRange" | ReactNode;
 
+export type OperationType = {
+  searchRender: boolean;
+  collapsed: boolean;
+};
+
 export type FormItemType = {
   valueType?: ValueType;
   el?: {
@@ -14,5 +19,6 @@ export type FormItemType = {
 
 export type FormType = {
   content?: FormItemType[];
+  operate?: OperationType;
   children?: ReactNode;
 } & Props;

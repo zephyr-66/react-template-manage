@@ -21,27 +21,18 @@ const renderer = <T,>(list: ColumnType<T>[]): { form: FormType } => {
     }
   });
   const form: FormType = { layout: "inline", content };
-  console.log(form);
   return {
     form,
   };
 };
 const ListPage = <RecordType,>(props: ListPageProps<RecordType>) => {
-  const { columns } = props;
+  const { columns, search } = props;
   const { form } = renderer<RecordType>(columns);
+  form.operate = search;
   return (
     <div className="list-page-main">
       <div className="list-page-filter">
-        <FormRenderer {...form}>
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit">
-                查询
-              </Button>
-              <Button htmlType="button">重置</Button>
-            </Space>
-          </Form.Item>
-        </FormRenderer>
+        <FormRenderer {...form} />
       </div>
       <div className="list-page-main">
         <Table<{}> />

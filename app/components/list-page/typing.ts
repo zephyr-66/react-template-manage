@@ -1,6 +1,6 @@
 ﻿import { ReactNode } from "react";
 import { FixedType, RenderedCell } from "rc-table/lib/interface";
-import { FormItemType } from "../form-renderer/typing";
+import { FormItemType, OperationType } from "../form-renderer/typing";
 export type SearchTransformKeyFn = (
   value: any,
   namePath: string,
@@ -27,6 +27,8 @@ export type ListPageProps<RecordType> = {
   url?: string;
   /** @description 列表数据源，优先级高于url */
   dataSource?: RecordType[];
+  /** @description 配置table和filter表单 */
+  search?: OperationType;
   /** @description 配置table和filter表单 */
   columns: ColumnType<RecordType>[];
 };
