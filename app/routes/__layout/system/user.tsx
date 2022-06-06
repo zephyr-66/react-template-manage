@@ -1,6 +1,6 @@
 import { LinksFunction, MetaFunction } from "@remix-run/node";
 import { ListPage, links as listPageLinks } from "~/components/list-page";
-import type { ListPageProps } from "~/components/list-page";
+import { ListPageProps } from "~/components/list-page";
 import { useState } from "react";
 
 export const links: LinksFunction = () => {
@@ -13,57 +13,52 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export default function User() {
-  const [listPage, setListPage] = useState<ListPageProps>({
-    form: {
-      layout: "inline",
-      content: [
-        {
-          name: "userName",
-          label: "用户名",
-          type: "input",
-          el: {
-            placeholder: "请输入用户名",
-          },
+const listpage: ListPageProps<any> = {
+  url: "",
+  columns: [
+    {
+      id: "userName",
+      title: "用户名",
+      search: {
+        el: {
+          placeholder: "用户名",
         },
-        {
-          name: "pwd",
-          label: "密码",
-          type: "input",
-          el: {
-            placeholder: "请输入用户名",
-          },
-        },
-        {
-          name: "pwd23",
-          label: "密码",
-          type: "input",
-          el: {
-            placeholder: "请输入用户名",
-          },
-        },
-        {
-          name: "pwd2",
-          label: "密码",
-          type: "input",
-          el: {
-            placeholder: "请输入用户名",
-          },
-        },
-        {
-          name: "pwd266",
-          label: "密码",
-          type: "input",
-          el: {
-            placeholder: "请输入用户名",
-          },
-        },
-      ],
+      },
     },
-  });
+    {
+      id: "userName2",
+      title: "用户名2",
+      search: {
+        el: {
+          placeholder: "用户名2",
+        },
+      },
+    },
+    {
+      id: "userName3",
+      title: "用户名3",
+      search: {
+        el: {
+          placeholder: "用户名3",
+        },
+      },
+    },
+    {
+      id: "userName4",
+      title: "用户名4",
+      search: {
+        el: {
+          placeholder: "用户名4",
+        },
+      },
+    },
+  ],
+};
+
+export default function User() {
   return (
     <div className="user-page list-page">
-      <ListPage {...listPage} />
+      <ListPage {...listpage} />
     </div>
   );
 }

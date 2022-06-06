@@ -1,18 +1,38 @@
-import FormRenderer from "../form-renderer";
 import type { LinksFunction } from "@remix-run/node";
 import { Form, Button, Space, Table } from "antd";
-import type { ListPageProps } from "./typing";
+import type { ListPageProps, ColumnType } from "./typing";
+import FormRenderer from "../form-renderer";
+import type { FormType, FormItemType } from "../form-renderer/typing";
 import styles from "./index.css";
 
-export const links: LinksFunction = () => {
+const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
 };
-
-export const ListPage = <RecordType,>(list: ListPageProps<RecordType>[]) => {
+const renderer = <T,>(list: ColumnType<T>[]): { form: FormType } => {
+  const content: FormItemType[] = [];
+  list.forEach((item) => {
+    const search = item.search ?? {};
+    if (search) {
+      content.push({
+        name: item.id,
+        label: item.title,
+        el: search.el,
+      });
+    }
+  });
+  const form: FormType = { layout: "inline", content };
+  console.log(form);
+  return {
+    form,
+  };
+};
+const ListPage = <RecordType,>(props: ListPageProps<RecordType>) => {
+  const { columns } = props;
+  const { form } = renderer<RecordType>(columns);
   return (
     <div className="list-page-main">
       <div className="list-page-filter">
-        <FormRenderer>
+        <FormRenderer {...form}>
           <Form.Item>
             <Space>
               <Button type="primary" htmlType="submit">
@@ -29,3 +49,5 @@ export const ListPage = <RecordType,>(list: ListPageProps<RecordType>[]) => {
     </div>
   );
 };
+
+export { links, ListPageProps, ListPage };

@@ -1,49 +1,42 @@
-import { Form, Input, Select } from "antd";
-import type { FormProps as Props, FormItemProps, InputProps } from "antd";
 import { ReactNode } from "react";
+import { Form, Row, Col } from "antd";
+import { FormType, FormItemType } from "./typing";
 
-type Content = {
-  type: String | ReactNode;
-  el?: InputProps;
-} & FormItemProps;
-
-export type FormProps = {
-  content?: Content[];
-  children?: ReactNode;
-} & Props;
 const childComponent = (type: String, el: any): ReactNode => {
   switch (type) {
     case "input":
-      return <Input {...el} />;
-    case "select":
-      return <Select {...el} />;
+      const Component = require("antd/lib/input").default;
+      return <Component {...el} />;
   }
 };
-const renderer = (data: Content[]): ReactNode[] => {
+const renderer = (data: FormItemType[]): ReactNode[] => {
   const children: ReactNode[] = [];
-  data.forEach(({ type, el, ...props }, index) => {
-    props.rules;
+  data.forEach(({ valueType, el, ...props }, index) => {
+    // 默认input类型
+    const type = valueType ?? "input";
     children.push(
-      <Form.Item {...props} key={index}>
-        {typeof type === "string" ? childComponent(type, el) : type}
-      </Form.Item>
+      <Col key={index} xxl={6} xl={6} lg={8} md={8} sm={24} xs={24}>
+        <Form.Item {...props}>
+          {typeof type === "string" ? childComponent(type, el) : type}
+        </Form.Item>
+      </Col>
     );
   });
   return children;
 };
-export default function FormRenderer({
-  content,
-  children,
-  ...props
-}: FormProps) {
+export default function FormRenderer(props: FormType) {
+  const { layout, content, children, ...args } = props;
+  const inline = layout === "inline";
   if (content) {
     return (
       <Form
-        {...props}
+        {...args}
         className={props.layout === "inline" ? "inline-form" : ""}
       >
-        {renderer(content)}
-        {children}
+        <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
+          {renderer(content)}
+          {children}
+        </Row>
       </Form>
     );
   }
