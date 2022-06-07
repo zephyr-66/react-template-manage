@@ -1,5 +1,6 @@
 ﻿import { ReactNode, CSSProperties } from "react";
 import type { FormItemProps, FormProps as Props } from "antd";
+import type { CommonType, GridType } from "~/components/grid-wrapper/typing";
 
 export type ValueType = "input" | "select" | "dateRange" | ReactNode;
 
@@ -18,6 +19,7 @@ export type FormItemType = {
 } & FormItemProps;
 
 export type FormType = {
+  grid?: boolean | (GridType & CommonType);
   content?: FormItemType[];
   operate?: OperationType;
   children?: ReactNode;

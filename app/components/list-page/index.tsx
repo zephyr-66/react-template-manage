@@ -1,9 +1,10 @@
 import type { LinksFunction } from "@remix-run/node";
-import { Form, Button, Space, Table } from "antd";
+import { Table } from "antd";
 import type { ListPageProps, ColumnType } from "./typing";
 import FormRenderer from "../form-renderer";
 import type { FormType, FormItemType } from "../form-renderer/typing";
 import styles from "./index.css";
+import { useState } from "react";
 
 const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }];
@@ -20,7 +21,7 @@ const renderer = <T,>(list: ColumnType<T>[]): { form: FormType } => {
       });
     }
   });
-  const form: FormType = { layout: "inline", content };
+  const form: FormType = { content };
   return {
     form,
   };
@@ -32,7 +33,7 @@ const ListPage = <RecordType,>(props: ListPageProps<RecordType>) => {
   return (
     <div className="list-page-main">
       <div className="list-page-filter">
-        <FormRenderer {...form} />
+        <FormRenderer {...form} grid />
       </div>
       <div className="list-page-main">
         <Table<{}> />

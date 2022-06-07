@@ -13,13 +13,11 @@ import {
 } from "@remix-run/react";
 
 import antdStyle from "antd/dist/antd.css";
-// import proStyle from "@ant-design/pro-components/dist/components.css";
 import globalStyle from "~/styles/global.css";
 
 export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: antdStyle },
-    // { rel: "stylesheet", href: proStyle },
     { rel: "stylesheet", href: globalStyle },
   ];
 };
