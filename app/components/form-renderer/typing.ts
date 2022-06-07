@@ -5,8 +5,9 @@ import type { CommonType, GridType } from "~/components/grid-wrapper/typing";
 export type ValueType = "input" | "select" | "dateRange" | ReactNode;
 
 export type OperationType = {
-  searchRender: boolean;
-  collapsed: boolean;
+  align?: "left" | "right" | "center";
+  searchRender?: boolean;
+  collapsed?: boolean;
 };
 
 export type FormItemType = {

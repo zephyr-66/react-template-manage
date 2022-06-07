@@ -11,13 +11,9 @@ const childComponent = (type: String, el: any): ReactNode => {
       return <Component {...el} />;
   }
 };
-const layoutCol = {
-  xl: 6,
-  md: 8,
-  xs: 24,
-};
+
 export default function FormRenderer(props: FormType) {
-  const { content = [], grid, children, operate, ...args } = props;
+  const { content = [], grid, children, operate = {}, ...args } = props;
   if (content.length === 0) {
     return null;
   }
@@ -43,10 +39,10 @@ export default function FormRenderer(props: FormType) {
   // 表单操作按钮
   const formOperate = useMemo(() => {
     const children: ReactNode[] = [];
-    const searchRender = operate?.searchRender ?? true;
+    const { searchRender, collapsed, align } = operate;
     if (searchRender) {
       children.push(
-        <ColWrapper key={content.length}>
+        <ColWrapper key={content.length} span={24} style={{ textAlign: align }}>
           <Form.Item>
             <Space>
               <Button type="primary" htmlType="submit">
@@ -59,24 +55,26 @@ export default function FormRenderer(props: FormType) {
               >
                 重置
               </Button>
-              <a
-                style={{ fontSize: 12 }}
-                onClick={() => {
-                  setExpand(!expand);
-                }}
-              >
-                {expand ? (
-                  <>
-                    <UpOutlined />
-                    收起
-                  </>
-                ) : (
-                  <>
-                    <DownOutlined />
-                    展开
-                  </>
-                )}
-              </a>
+              {collapsed ? (
+                <a
+                  style={{ fontSize: 12 }}
+                  onClick={() => {
+                    setExpand(!expand);
+                  }}
+                >
+                  {expand ? (
+                    <>
+                      <UpOutlined />
+                      收起
+                    </>
+                  ) : (
+                    <>
+                      <DownOutlined />
+                      展开
+                    </>
+                  )}
+                </a>
+              ) : null}
             </Space>
           </Form.Item>
         </ColWrapper>
@@ -95,7 +93,7 @@ export default function FormRenderer(props: FormType) {
       <RowWrapper>
         {formChild}
         {formOperate}
-        {children ? <ColWrapper {...layoutCol}>{children}</ColWrapper> : null}
+        {children ? <ColWrapper>{children}</ColWrapper> : null}
       </RowWrapper>
     </Form>
   );

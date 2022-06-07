@@ -6,11 +6,6 @@ export type CommonType = {
 
 export type GridType = {
   /**
-   * open grid layout
-   * @default false
-   */
-  grid?: boolean;
-  /**
    * only works when grid is enabled
    *
    * When passing the `span` attribute, the default value is empty

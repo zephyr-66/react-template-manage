@@ -1,5 +1,4 @@
-﻿import { ReactNode } from "react";
-import { FixedType, RenderedCell } from "rc-table/lib/interface";
+﻿import type { ColumnType, ColumnGroupType } from "antd/lib/table";
 import { FormItemType, OperationType } from "../form-renderer/typing";
 export type SearchTransformKeyFn = (
   value: any,
@@ -7,21 +6,13 @@ export type SearchTransformKeyFn = (
   allValues: any
 ) => string | Record<string, any>;
 
-export type ColumnType<RecordType> = {
-  id: string;
-  title: string;
+export type ColumnsProps<RecordType> = {
   search?:
     | false
     | (FormItemType & {
         transform?: SearchTransformKeyFn;
       });
-  fixed?: FixedType;
-  render?: (
-    value: any,
-    record: RecordType,
-    index: number
-  ) => ReactNode | RenderedCell<RecordType>;
-};
+} & (ColumnGroupType<RecordType> | ColumnType<RecordType>);
 export type ListPageProps<RecordType> = {
   /** @description 列表api */
   url?: string;
@@ -30,5 +21,5 @@ export type ListPageProps<RecordType> = {
   /** @description 配置table和filter表单 */
   search?: OperationType;
   /** @description 配置table和filter表单 */
-  columns: ColumnType<RecordType>[];
+  columns: ColumnsProps<RecordType>[];
 };

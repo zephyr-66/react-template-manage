@@ -7,12 +7,11 @@ export interface GridHelpers {
   RowWrapper: React.FC<RowProps & CommonType>;
   ColWrapper: React.FC<ColProps & CommonType>;
 }
-
 const gridHelpers = ({
   grid,
   rowProps,
   colProps,
-}: GridType & CommonType): GridHelpers => ({
+}: GridType & CommonType & { grid: boolean }): GridHelpers => ({
   RowWrapper({ children, Wrapper, ...props } = {}) {
     if (!grid) {
       return Wrapper ? <Wrapper>{children}</Wrapper> : (children as any);
@@ -26,19 +25,13 @@ const gridHelpers = ({
   ColWrapper({ children, Wrapper, ...args } = {}) {
     const props = useMemo(() => {
       const originProps = { ...colProps, ...args };
-      /**
-       * `xs` takes precedence over `span`
-       * avoid `span` doesn't work
-       */
-      if (
-        typeof originProps.span === "undefined" &&
-        typeof originProps.xs === "undefined"
-      ) {
-        originProps.xs = 24;
+      // 由于xs等优先级高于span,这里处理一下以span为主
+      if (originProps.span) {
+        const { xs, sm, md, lg, xl, xxl, ...surplus } = originProps;
+        return surplus;
       }
       return originProps;
     }, [args]);
-    console.log("props", props);
     if (!grid) {
       return Wrapper ? <Wrapper>{children}</Wrapper> : children;
     }
@@ -50,21 +43,16 @@ export const useGridHelpers = (props?: (GridType & CommonType) | boolean) => {
   const config = useMemo(() => {
     {
       if (typeof props === "object") {
-        props.grid = true;
-        return props;
+        return { ...props, grid: true };
       }
-      return {
-        grid: props,
-      };
+      return { grid: !!props };
     }
   }, [props]);
-
-  console.log("config", config);
 
   return useMemo(
     () =>
       gridHelpers({
-        grid: !!config.grid,
+        grid: config.grid,
         rowProps: config?.rowProps,
         colProps: config?.colProps,
         Wrapper: config?.Wrapper,
