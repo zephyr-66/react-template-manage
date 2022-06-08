@@ -32,7 +32,7 @@ const renderer = <T,>(
       content.push({
         name: item?.key,
         label,
-        el: filter.el,
+        ...filter,
       });
     }
     columns.push(item);
@@ -43,7 +43,8 @@ const renderer = <T,>(
     columns,
   };
 };
-const ListPage = <RecordType extends Record<string, any>>(
+
+const ListPage = <RecordType extends object>(
   props: ListPageProps<RecordType>
 ) => {
   const { columns, search = { searchRender: true, align: "right" } } = props;

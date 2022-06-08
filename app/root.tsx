@@ -14,6 +14,7 @@ import {
 
 import antdStyle from "antd/dist/antd.css";
 import globalStyle from "~/styles/global.css";
+import { storage } from "~/sessions";
 
 export const links: LinksFunction = () => {
   return [
@@ -28,9 +29,11 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export const loader: LoaderFunction = ({ request }) => {
-  const url = new URL(request.url);
-  console.log("url", url.searchParams.get("a"));
+export const loader: LoaderFunction = async ({ request }) => {
+  // const url = new URL(request.url);
+  // console.log("url", url);
+  const session = await storage.getSession();
+  console.log("session", session.data);
   return null;
 };
 

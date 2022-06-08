@@ -1,7 +1,15 @@
-import { LinksFunction, MetaFunction } from "@remix-run/node";
-import style from "~/styles/auth/login.css";
+import {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+  json,
+  redirect,
+} from "@remix-run/node";
 import { Button, Checkbox, Form, Input, Tabs } from "antd";
 import { LockOutlined, UserOutlined, WechatOutlined } from "@ant-design/icons";
+import style from "~/styles/auth/login.css";
+import { useLoaderData, useNavigate } from "@remix-run/react";
+import { storage } from "~/sessions";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: style }];
@@ -13,9 +21,22 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await storage.getSession();
+  session.set("token", "123456");
+  const a = await storage.commitSession(session);
+  // return redirect("/", {
+  //   headers: {
+  //     "Set-Cookie": a,
+  //   },
+  // });
+  return null;
+};
+
 export default function Login() {
   const loading = false;
-  const run = (v: any) => {};
+  const navigate = useNavigate();
+  const run = async (v: any) => {};
   return (
     <div className="login-page">
       <div className="login-page-container">

@@ -1,3 +1,12 @@
+import { LoaderFunction, json } from "@remix-run/node";
+
+export const loader: LoaderFunction = async (ctx) => {
+  console.log("ctx", ctx);
+  const res = await fetch(
+    "http://127.0.0.1:4523/mock/999987/uaa/api/user/list"
+  );
+  return res.json();
+};
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>

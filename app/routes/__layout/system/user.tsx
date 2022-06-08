@@ -12,21 +12,32 @@ export const meta: MetaFunction = () => ({
   title: "用户管理",
   viewport: "width=device-width,initial-scale=1",
 });
+type DataType = {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+  tags: string[];
+};
 
-const listpage: ListPageProps<any> = {
+const listpage: ListPageProps<DataType> = {
   url: "",
   columns: [
     {
-      id: "userName",
-      title: "用户名",
+      dataIndex: "userName",
+      title: "sss",
       search: {
+        tooltip: "This is a required field",
         el: {
           placeholder: "用户名",
         },
       },
+      render: (v, row) => {
+        return <a>{v}</a>;
+      },
     },
     {
-      id: "userName2",
+      dataIndex: "userName2",
       title: "用户名2",
       search: {
         el: {
@@ -35,7 +46,7 @@ const listpage: ListPageProps<any> = {
       },
     },
     {
-      id: "userName3",
+      dataIndex: "userName3",
       title: "用户名3",
       search: {
         el: {
@@ -44,7 +55,7 @@ const listpage: ListPageProps<any> = {
       },
     },
     {
-      id: "userName4",
+      dataIndex: "userName4",
       title: "用户名4",
       search: {
         el: {
