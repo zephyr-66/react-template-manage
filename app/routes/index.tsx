@@ -1,16 +1,16 @@
-import { LoaderFunction, json } from "@remix-run/node";
+import { LoaderFunction } from "@remix-run/node";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 export const loader: LoaderFunction = async (ctx) => {
+  console.log(ctx.request.headers);
   return null;
 };
 export default function Index() {
   useEffect(() => {
-    console.log("document.cookie", document.cookie);
+    console.log("cookie", Cookies.get());
     const res = fetch("http://127.0.0.1:4523/mock/999987/uaa/api/user/list", {
-      headers: {
-        Authorization: "123333333",
-      },
+      credentials: "include",
     });
   }, []);
   return (

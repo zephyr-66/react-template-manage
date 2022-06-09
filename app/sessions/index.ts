@@ -3,11 +3,7 @@ import { createCookieSessionStorage, createCookie } from "@remix-run/node";
 export const storage = createCookieSessionStorage({
   // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
-    name: "__session",
-    // all of these are optional
-    secrets: ["s3cret1"],
-    secure: true,
-    sameSite: "lax",
+    name: "Authorization",
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   },
