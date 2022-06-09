@@ -25,12 +25,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   const session = await storage.getSession();
   session.set("token", "123456");
   const a = await storage.commitSession(session);
-  // return redirect("/", {
-  //   headers: {
-  //     "Set-Cookie": a,
-  //   },
-  // });
-  return null;
+  return redirect("/", {
+    headers: {
+      "Set-Cookie": a,
+    },
+  });
 };
 
 export default function Login() {

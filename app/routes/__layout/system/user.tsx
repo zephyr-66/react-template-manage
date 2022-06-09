@@ -1,7 +1,7 @@
-import { LinksFunction, MetaFunction } from "@remix-run/node";
+import { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { ListPage, links as listPageLinks } from "~/components/list-page";
 import { ListPageProps } from "~/components/list-page";
-import { useState } from "react";
+import { useOutletContext } from "@remix-run/react";
 
 export const links: LinksFunction = () => {
   return [...listPageLinks()];
@@ -12,6 +12,7 @@ export const meta: MetaFunction = () => ({
   title: "用户管理",
   viewport: "width=device-width,initial-scale=1",
 });
+
 type DataType = {
   key: string;
   name: string;

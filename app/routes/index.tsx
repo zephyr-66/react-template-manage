@@ -1,13 +1,18 @@
 import { LoaderFunction, json } from "@remix-run/node";
+import { useEffect } from "react";
 
 export const loader: LoaderFunction = async (ctx) => {
-  console.log("ctx", ctx);
-  const res = await fetch(
-    "http://127.0.0.1:4523/mock/999987/uaa/api/user/list"
-  );
-  return res.json();
+  return null;
 };
 export default function Index() {
+  useEffect(() => {
+    console.log("document.cookie", document.cookie);
+    const res = fetch("http://127.0.0.1:4523/mock/999987/uaa/api/user/list", {
+      headers: {
+        Authorization: "123333333",
+      },
+    });
+  }, []);
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>

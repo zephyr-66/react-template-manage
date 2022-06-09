@@ -10,7 +10,6 @@ export const storage = createCookieSessionStorage({
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
-    httpOnly: true,
   },
 });
 
