@@ -2,13 +2,15 @@ import {
   LinksFunction,
   LoaderFunction,
   MetaFunction,
-  json,
   redirect,
+  ActionFunction,
+  json,
 } from "@remix-run/node";
 import { Button, Checkbox, Form, Input, Tabs } from "antd";
 import { LockOutlined, UserOutlined, WechatOutlined } from "@ant-design/icons";
 import style from "~/styles/auth/login.css";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
+import services from "~/services";
 import { storage } from "~/sessions";
 
 export const links: LinksFunction = () => {
@@ -22,16 +24,21 @@ export const meta: MetaFunction = () => ({
 });
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const session = await storage.getSession();
-  session.set("token", "123456");
-  await storage.commitSession(session);
-  return redirect("/");
+  return null;
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
+  const data: Record<string, any> = {};
+  form.forEach((value, key) => {
+    data[key] = value;
+  });
+  const res = await services.user.login(data);
+  return null;
 };
 
 export default function Login() {
-  const loading = false;
-  const navigate = useNavigate();
-  const run = async (v: any) => {};
+  const fetcher = useFetcher();
   return (
     <div className="login-page">
       <div className="login-page-container">
@@ -43,8 +50,8 @@ export default function Login() {
             <Tabs.TabPane tab="手机号登录" key="phone" />
           </Tabs>
           <Form
-            onFinish={(values) => {
-              run(values);
+            onFinish={(val) => {
+              fetcher.submit(val, { method: "post" });
             }}
           >
             <Form.Item
@@ -76,7 +83,12 @@ export default function Login() {
               </a>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" block loading={loading}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+                loading={fetcher.state !== "idle"}
+              >
                 登录
               </Button>
             </Form.Item>
