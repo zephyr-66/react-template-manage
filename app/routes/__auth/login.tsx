@@ -11,7 +11,7 @@ import { LockOutlined, UserOutlined, WechatOutlined } from "@ant-design/icons";
 import style from "~/styles/auth/login.css";
 import { useFetcher } from "@remix-run/react";
 import services from "~/services";
-import { storage } from "~/sessions";
+import { commitSession } from "~/sessions";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: style }];
